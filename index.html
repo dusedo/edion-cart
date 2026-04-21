@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Edion Cart Forcer</title>
+<style>
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;max-width:640px;margin:40px auto;padding:16px;line-height:1.6}
+  h1{font-size:18px}
+  input,button{font-size:16px;padding:10px;box-sizing:border-box}
+  input[type=text]{width:100%}
+  button{width:100%;margin-top:12px;background:#d30000;color:#fff;border:0;border-radius:6px;padding:14px}
+  .hint{color:#666;font-size:13px;margin-top:16px}
+  code{background:#eee;padding:2px 6px;border-radius:3px}
+</style>
+</head>
+<body>
+<h1>Edion カート強制投入</h1>
+
+<p>商品コード（<code>p_cd</code>）を入力して送信 → エディオンにログイン済みの同じブラウザならカートに追加されます。</p>
+
+<form id="f" action="https://www.edion.com/intoCart" method="POST">
+  <input type="text" name="p_cd1" id="pcd" placeholder="例: 00084481269" required>
+  <input type="hidden" name="b_cd" value="12106">
+  <input type="hidden" name="qt" value="1">
+  <input type="hidden" name="cart_sts" value="1">
+  <input type="hidden" name="key" value="">
+  <input type="hidden" name="p_cd2"><input type="hidden" name="p_cd3">
+  <input type="hidden" name="p_cd4"><input type="hidden" name="p_cd5">
+  <button type="submit">カートに入れる</button>
+</form>
+
+<p class="hint">
+URLに <code>?p=商品コード</code> を付けると自動送信されます<br>
+例: <code>?p=00084481269</code>
+</p>
+
+<p class="hint">
+送信後エディオンのカートページに遷移します。カートに入っていれば成功。<br>
+「ログインしてください」に飛んだらまずエディオンにログインしてから再実行。
+</p>
+
+<script>
+  var q = new URLSearchParams(location.search).get('p');
+  if (q) {
+    document.getElementById('pcd').value = q;
+    document.getElementById('f').submit();
+  }
+</script>
+</body>
+</html>
